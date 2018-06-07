@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+
+    <div class="col-lg-6">
+
+        <h3>Linked list test</h3>
+        <hr/>
+        <p>
+            Linked list 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11
+        </p>
+
+        <form>
+            <form-group class="row">
+                <label class="col-lg-6">Enter index number</label>
+                <input  class="col-lg-6 form-control" type="number" min="1" max="11" name="index" id="index" />
+            </form-group>
+            <form-group class="row">
+                <label class="col-lg-6">Result :</label>
+                <div class="col-lg-6">
+                    <div id="result"></div>
+                </div>
+            </form-group>
+            <button id="btnIndex" class="btn btn-primary">Get Value</button>
+
+        </form>
+    </div>
+
+    <div class="col-lg-6">
+        <h3>Reverse string test</h3>
+        <hr />
+        <p>
+            i.e. Enter the test
+        </p>
+
+        <form>
+            <form-group class="row">
+                <label class="col-lg-6">Enter text</label>
+                <input type="text" maxlength="100" name="revString" id="revString" class="form-control col-lg-6" />
+            </form-group>
+
+            <form-group class="row">
+                <label class="col-lg-6">Result string :</label>
+                <span class="col-lg-6" id="resulstring"></span>
+            </form-group>
+
+            <button id="btnRevString" class="btn btn-primary">Reverse String</button>
+
+        </form>
+    </div>
+
+</div>
+
+
+@section Scripts {
+<script tpe="text/javascript">$(document).ready(function() {
+
+
+        $("#btnIndex").click(function(event) {
+
+            event.preventDefault();
+
+            $.get("/Home/GetItemFromLinkedList",
+                { index: $("#index").val() },
+                function(output, err) {
+
+                    console.log(output);
+
+                    $("#result").text(output.model);
+
+                }, "json");
+
+        });
+
+        $("#btnRevString").click(function(event) {
+            event.preventDefault();
+
+            $.get("/Home/GetReverseString",
+                { requestString: $("#revString").val() },
+                function(output, err) {
+                    console.log(output.model);
+                    $("#resulstring").text(output.model);
+                }, "json");
+        });
+
+});</script>
+}
